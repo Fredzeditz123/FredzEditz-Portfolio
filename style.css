@@ -197,14 +197,15 @@ body::after {
   backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(255,255,255,0.03);
 }
-.nav-inner{
-  max-width:1200px;
+.nav-inner {
+  max-width: 1200px;
   margin: 0 auto;
   padding: 12px 20px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: relative;
 }
 .logo-container { display:flex; align-items:center; gap:12px; }
 .logo {
@@ -224,6 +225,82 @@ body::after {
 .nav-links a{ color: var(--muted); text-decoration:none; font-weight:600; padding:8px 10px; border-radius:8px; transition: color .18s ease, background .18s ease; }
 .nav-links a:hover { color: #fff; background: rgba(58,160,255,0.07); box-shadow: 0 6px 20px rgba(58,160,255,0.03) inset; }
 
+/* Hamburger Menu Styles */
+.menu-btn {
+  display: none;
+  flex-direction: column;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  gap: 6px;
+  z-index: 50;
+  padding: 0;
+}
+
+.menu-btn span {
+  width: 25px;
+  height: 3px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Mobile Menu - Show hamburger */
+@media (max-width: 768px) {
+  .menu-btn {
+    display: flex;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: rgba(6, 6, 9, 0.98);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    z-index: 39;
+  }
+
+  .nav-links.active {
+    max-height: 400px;
+    padding: 20px 0;
+  }
+
+  .nav-links li {
+    padding: 0;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 15px 20px;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .nav-links a:hover {
+    background: rgba(58, 160, 255, 0.1);
+  }
+
+  /* Hamburger animation when active */
+  .menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(10px, 10px);
+  }
+
+  .menu-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px);
+  }
+}
 /* ------------------------
    HERO
    ------------------------ */
