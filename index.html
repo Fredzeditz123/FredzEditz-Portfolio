@@ -459,10 +459,19 @@ function convertGoogleDriveToImageUrl(url) {
       submitBtn.disabled = true;
       statusMsg.textContent = '';
       
-      emailjs.sendForm(
-        'service_or1134t',
-        'template_7em8ikd',
-        this
+      const formData = new FormData(this);
+      const templateParams = {
+       user_name: formData.get('user_name'),
+       user_email: formData.get('user_email'),
+      subject: formData.get('subject'),
+       message: formData.get('message'),
+      reply_to: formData.get('user_email')  // ✅ ADD THIS
+    };
+
+     emailjs.send(
+      'service_or1134t',
+      'template_7em8ikd',
+       templateParams
       )
       .then(function() {
         statusMsg.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
