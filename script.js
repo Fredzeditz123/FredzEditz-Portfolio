@@ -287,7 +287,7 @@ document.addEventListener('keydown', function(event) {
   }
 });
 
-// ✅ EmailJS Contact Form Handler
+// ✅ EmailJS Contact Form Handler - FIXED VERSION
 // Initialize EmailJS
 (function() {
   emailjs.init("Jqqr5QJW5lpCN42Va");
@@ -317,25 +317,24 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     reply_to: userEmail
   };
   
+  // ✅ FIXED: Proper emailjs.send syntax
   emailjs.send(
     'service_or1134t',
     'template_7em8ikd',
-    templateParams,
-    {
-      reply_to: userEmail  // ✅ THIS SETS REPLY-TO SO REPLIES GO TO SENDER
-    }
+    templateParams
   )
-  .then(function() {
+  .then(function(response) {
+    console.log('Email sent successfully!', response);
     statusMsg.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
     statusMsg.style.color = '#10b981';
     document.getElementById('contactForm').reset();
     submitBtn.textContent = 'Send Message';
     submitBtn.disabled = false;
   }, function(error) {
+    console.error('Failed to send email:', error);
     statusMsg.textContent = '✗ Failed to send message. Please try again.';
     statusMsg.style.color = '#ef4444';
     submitBtn.textContent = 'Send Message';
     submitBtn.disabled = false;
-    console.log('Error:', error);
   });
 });
