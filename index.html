@@ -442,51 +442,6 @@ function convertGoogleDriveToImageUrl(url) {
   <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
-  <script>
-    // Initialize EmailJS
-    (function() {
-      emailjs.init("Jqqr5QJW5lpCN42Va");
-    })();
-
-    // Handle form submission
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const submitBtn = this.querySelector('.btn');
-      const statusMsg = document.getElementById('form-status');
-      
-      submitBtn.textContent = 'Sending...';
-      submitBtn.disabled = true;
-      statusMsg.textContent = '';
-      
-      const formData = new FormData(this);
-      const templateParams = {
-       user_name: formData.get('user_name'),
-       user_email: formData.get('user_email'),
-      subject: formData.get('subject'),
-       message: formData.get('message'),
-      reply_to: formData.get('user_email')  // ✅ ADD THIS
-    };
-
-     emailjs.send(
-      'service_or1134t',
-      'template_7em8ikd',
-       templateParams
-      )
-      .then(function() {
-        statusMsg.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
-        statusMsg.style.color = '#10b981';
-        document.getElementById('contactForm').reset();
-        submitBtn.textContent = 'Send Message';
-        submitBtn.disabled = false;
-      }, function(error) {
-        statusMsg.textContent = '✗ Failed to send message. Please try again.';
-        statusMsg.style.color = '#ef4444';
-        submitBtn.textContent = 'Send Message';
-        submitBtn.disabled = false;
-        console.log('Error:', error);
-      });
-    });
-  </script>
+  
 </body>
 </html>

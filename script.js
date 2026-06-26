@@ -287,3 +287,55 @@ document.addEventListener('keydown', function(event) {
   }
 });
 
+// ✅ EmailJS Contact Form Handler
+// Initialize EmailJS
+(function() {
+  emailjs.init("Jqqr5QJW5lpCN42Va");
+})();
+
+// Handle form submission
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const submitBtn = this.querySelector('.btn');
+  const statusMsg = document.getElementById('form-status');
+  const userName = this.querySelector('[name="user_name"]').value;
+  const userEmail = this.querySelector('[name="user_email"]').value;
+  const subject = this.querySelector('[name="subject"]').value;
+  const message = this.querySelector('[name="message"]').value;
+  
+  submitBtn.textContent = 'Sending...';
+  submitBtn.disabled = true;
+  statusMsg.textContent = '';
+  
+  // ✅ Template parameters with reply_to
+  const templateParams = {
+    user_name: userName,
+    user_email: userEmail,
+    subject: subject,
+    message: message,
+    reply_to: userEmail
+  };
+  
+  emailjs.send(
+    'service_or1134t',
+    'template_7em8ikd',
+    templateParams,
+    {
+      reply_to: userEmail  // ✅ THIS SETS REPLY-TO SO REPLIES GO TO SENDER
+    }
+  )
+  .then(function() {
+    statusMsg.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
+    statusMsg.style.color = '#10b981';
+    document.getElementById('contactForm').reset();
+    submitBtn.textContent = 'Send Message';
+    submitBtn.disabled = false;
+  }, function(error) {
+    statusMsg.textContent = '✗ Failed to send message. Please try again.';
+    statusMsg.style.color = '#ef4444';
+    submitBtn.textContent = 'Send Message';
+    submitBtn.disabled = false;
+    console.log('Error:', error);
+  });
+});
