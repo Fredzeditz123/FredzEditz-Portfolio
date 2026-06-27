@@ -422,7 +422,7 @@ function convertGoogleDriveToImageUrl(url) {
               <img src="assets/icons/Tiktok png.jpg" alt="TikTok">
             </a>
             <a href="https://www.linkedin.com/in/freedom-ogunewe-426914419?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="social-icon linkedln">
-              <img src="assets\icons\linklin png.jpg" alt="linkedln">
+              <img src="assets/icons/linklin png.jpg" alt="linkedln">
             </a>
           </div>
         </div>
@@ -437,22 +437,21 @@ function convertGoogleDriveToImageUrl(url) {
     </div>
   </footer>
 
-
-  <script src="script.js"></script>
-
-  <!-- EmailJS SDK -->
+  <!-- EmailJS SDK FIRST ✅ -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
-  <!-- ✅ BACKUP FORM HANDLER (if script.js fails) -->
+  <!-- THEN load your script ✅ -->
+  <script src="script.js"></script>
+
+  <!-- Backup handler LAST ✅ -->
   <script>
-    // Wait for DOM to load
     document.addEventListener('DOMContentLoaded', function() {
       emailjs.init("Jqqr5QJW5lpCN42Va");
       
       const form = document.getElementById('contactForm');
       if (form) {
         form.addEventListener('submit', function(e) {
-          e.preventDefault(); // ✅ STOP PAGE REFRESH
+          e.preventDefault();
           console.log('Form submitted');
           
           const submitBtn = this.querySelector('.btn');
