@@ -437,11 +437,59 @@ function convertGoogleDriveToImageUrl(url) {
     </div>
   </footer>
 
+
   <script src="script.js"></script>
 
   <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
-  
+  <!-- ✅ BACKUP FORM HANDLER (if script.js fails) -->
+  <script>
+    // Wait for DOM to load
+    document.addEventListener('DOMContentLoaded', function() {
+      emailjs.init("Jqqr5QJW5lpCN42Va");
+      
+      const form = document.getElementById('contactForm');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault(); // ✅ STOP PAGE REFRESH
+          console.log('Form submitted');
+          
+          const submitBtn = this.querySelector('.btn');
+          const statusMsg = document.getElementById('form-status');
+          const userName = this.querySelector('[name="user_name"]').value;
+          const userEmail = this.querySelector('[name="user_email"]').value;
+          const subject = this.querySelector('[name="subject"]').value;
+          const message = this.querySelector('[name="message"]').value;
+          
+          submitBtn.textContent = 'Sending...';
+          submitBtn.disabled = true;
+          
+          emailjs.send('service_or1134t', 'template_7em8ikd', {
+            user_name: userName,
+            user_email: userEmail,
+            subject: subject,
+            message: message,
+            reply_to: userEmail
+          }, { reply_to: userEmail })
+          .then(() => {
+            statusMsg.textContent = '✓ Message sent successfully!';
+            statusMsg.style.color = '#10b981';
+            form.reset();
+            submitBtn.textContent = 'Send Message';
+            submitBtn.disabled = false;
+          })
+          .catch(error => {
+            statusMsg.textContent = '✗ Failed to send. Try again.';
+            statusMsg.style.color = '#ef4444';
+            submitBtn.textContent = 'Send Message';
+            submitBtn.disabled = false;
+            console.log('Error:', error);
+          });
+        });
+      }
+    });
+  </script>
+
 </body>
 </html>
